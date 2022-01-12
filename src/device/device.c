@@ -22,7 +22,8 @@ SOFTWARE. */
 
 #include "device.h"
 
-#define ARRSZ(a) (sizeof(a)/sizeof(a[0])) 
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0])) 
+#define MSG_LEN 64
 
 /**
  * @brief Get the device pointer from the current handle.
@@ -162,6 +163,47 @@ void device_setup(args_t* args)
     }
 }
 
+/**
+ * @brief Get the device index from user input.
+ *
+ * @return int Chosen device index.
+ */
+static int get_device_index()
+{
+    int chosen = 0;
+    while (1)
+    {
+        fprintf(stdout, "Please enter device index: ");
+
+        size_t buflen = 6;
+        char buf[buflen];
+        memset(buf, 0, sizeof(char) * buflen);
+
+        fgets(buf, buflen, stdin);
+
+        if (!isdigit(buf[0]))
+        {
+            // More than 6
+            if (buf[buflen - 1] == 0)
+            {
+                // Clear stdin
+                char c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+
+                continue;
+            }
+
+            fprintf(stdout, "\n");
+            continue;
+        }
+
+        chosen = strtol(buf, NULL, 10);
+        break;
+    }
+
+    return chosen;
+}
+
 void device_find(args_t* args, struct libusb_device_handle** handleptr)
 {
     libusb_device** devices;
@@ -176,6 +218,13 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
     uint16_t search_vendor = args->vendor_id != -1 ? args->vendor_id : VENDOR_ID;
     uint16_t search_product = args->product_id != -1 ? args->product_id : PRODUCT_ID;
 
+    int ind_i = 0;
+    int indizes[found];
+    memset(indizes, -1, sizeof(int) * found);
+
+    int chosen = 0;
+
+    // Identify all matching devices that are connected.
     int ret = 0;
     for (int i = 0; i < found; i++)
     {
@@ -193,16 +242,53 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
 
         if (dev_dsc.idVendor == search_vendor && dev_dsc.idProduct == search_product)
         {
-            ret = libusb_open(dev, handleptr);
+            indizes[ind_i++] = i;
+        }
+    }
+
+    // More than one device
+    if (ind_i > 1)
+    {
+        fprintf(stdout, "More than one matching device found. Please choose the desired device...\n");
+
+        for (int i = 0; i < ARRAY_SIZE(indizes); i++)
+        {
+            if (indizes[i] == -1)
+            {
+                break;
+            }
+
+            struct libusb_device* dev = devices[indizes[i]];
+
+            struct libusb_device_descriptor dev_dsc = { 0 };
+            ret = libusb_get_device_descriptor(dev, &dev_dsc);
 
             if (ret < LIBUSB_SUCCESS)
             {
-                log_error("Error opening device - %s - Abort.\n", libusb_error_name(ret));
+                log_error("Error retrieving device descriptor - %s - Abort.\n", libusb_error_name(ret));
                 exit(EXIT_FAILURE);
             }
 
-            break;
+            uint8_t busnum = libusb_get_bus_number(dev);
+            uint8_t devaddr = libusb_get_device_address(dev);
+
+            fprintf(stdout, "[%i] Bus: %i, Device: %i\n", indizes[i], busnum, devaddr);
         }
+
+        chosen = get_device_index();
+    }
+    else
+    {
+        // If just one device is connected the first index in indizes is taken.
+        chosen = indizes[0];
+    }
+
+    ret = libusb_open(devices[chosen], handleptr);
+
+    if (ret < LIBUSB_SUCCESS)
+    {
+        log_error("Error opening device - %s - Abort.\n", libusb_error_name(ret));
+        exit(EXIT_FAILURE);
     }
 
     libusb_free_device_list(devices, 1);
@@ -226,7 +312,7 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
 
 void device_static_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x69, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x03,
         0x03, 0x02, 0x00, 0x00, lighting.red,
@@ -242,7 +328,7 @@ void device_static_light(lighting_t lighting, struct libusb_device_handle* handl
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -252,7 +338,7 @@ void device_static_light(lighting_t lighting, struct libusb_device_handle* handl
 
 void device_wave_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x65 + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x00,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -268,7 +354,7 @@ void device_wave_light(lighting_t lighting, struct libusb_device_handle* handle)
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -278,7 +364,7 @@ void device_wave_light(lighting_t lighting, struct libusb_device_handle* handle)
 
 void device_spectrum_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x66 + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x01,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -294,7 +380,7 @@ void device_spectrum_light(lighting_t lighting, struct libusb_device_handle* han
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -304,7 +390,7 @@ void device_spectrum_light(lighting_t lighting, struct libusb_device_handle* han
 
 void device_breathing_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x67 + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x02,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -320,7 +406,7 @@ void device_breathing_light(lighting_t lighting, struct libusb_device_handle* ha
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -330,7 +416,7 @@ void device_breathing_light(lighting_t lighting, struct libusb_device_handle* ha
 
 void device_rolling_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x6f + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x0a,
         0x03, lighting.speed, 0x00, 0x01, 0xff,
@@ -346,7 +432,7 @@ void device_rolling_light(lighting_t lighting, struct libusb_device_handle* hand
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -356,7 +442,7 @@ void device_rolling_light(lighting_t lighting, struct libusb_device_handle* hand
 
 void device_curve_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x71 + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x0c,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -372,7 +458,7 @@ void device_curve_light(lighting_t lighting, struct libusb_device_handle* handle
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -391,7 +477,7 @@ void device_scan_light(lighting_t lighting, struct libusb_device_handle* handle)
 
 void device_radiation_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x77 + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x12,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -407,7 +493,7 @@ void device_radiation_light(lighting_t lighting, struct libusb_device_handle* ha
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -417,7 +503,7 @@ void device_radiation_light(lighting_t lighting, struct libusb_device_handle* ha
 
 void device_ripples_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x78 + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x13,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -433,7 +519,7 @@ void device_ripples_light(lighting_t lighting, struct libusb_device_handle* hand
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {
@@ -443,7 +529,7 @@ void device_ripples_light(lighting_t lighting, struct libusb_device_handle* hand
 
 void device_single_key_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    uint8_t data[64] = {
+    uint8_t data[MSG_LEN] = {
         0x04, 0x7a + lighting.speed, 0x03, 0x06, 0x09,
         0x00, 0x00, 0x55, 0x00, 0x15,
         0x03, lighting.speed, 0x00, lighting.random_colors, lighting.red,
@@ -459,7 +545,7 @@ void device_single_key_light(lighting_t lighting, struct libusb_device_handle* h
         0x00, 0x00, 0x00, 0x00
     };
 
-    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRSZ(data), 0);
+    int written = libusb_control_transfer(handle, 0x21, 0x09, 0x0204, 0x0001, data, ARRAY_SIZE(data), 0);
 
     if (written < LIBUSB_SUCCESS)
     {

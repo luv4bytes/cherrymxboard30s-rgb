@@ -28,7 +28,7 @@ void help_print()
 {
     printf("\033[36mcherry-mx-board_3_0s-rgb\033[0m\n");
     printf("\n");
-    printf("Usage: ./cherry-mx-board_3_0s-rgb [OPTIONS] \033[0m\n");
+    printf("Usage: ./cherry-mx-board_3_0s-rgb [OPTIONS...] [LIGHTING] \033[0m\n");
     printf("\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--red", "[0 - 255]", "Red value of the RGB value that shall be used for setting the color.\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--green", "[0 - 255]", "Green value of the RGB value that shall be used for setting the color.\n");
