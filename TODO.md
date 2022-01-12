@@ -1,5 +1,3 @@
 - Custom Lighting
 - Scan lighting
-- README
-- GUI
-- .deb package
+- Debian packaging?

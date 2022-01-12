@@ -141,28 +141,6 @@ static void claim_all_interfaces(struct libusb_device_handle* handle)
     }
 }
 
-void device_setup(args_t* args)
-{
-    int init = libusb_init(NULL);
-
-    if (init < LIBUSB_SUCCESS)
-    {
-        log_error("%s - Abort.\n", libusb_error_name(init));
-        exit(EXIT_FAILURE);
-    }
-
-    if (args->verbose == true)
-    {
-        int set = libusb_set_option(NULL, LIBUSB_OPTION_LOG_LEVEL, LIBUSB_LOG_LEVEL_DEBUG);
-
-        if (set < LIBUSB_SUCCESS)
-        {
-            log_error("%s - Abort.\n", libusb_error_name(init));
-            exit(EXIT_FAILURE);
-        }
-    }
-}
-
 /**
  * @brief Get the device index from user input.
  *
@@ -202,6 +180,28 @@ static int get_device_index()
     }
 
     return chosen;
+}
+
+void device_setup(args_t* args)
+{
+    int init = libusb_init(NULL);
+
+    if (init < LIBUSB_SUCCESS)
+    {
+        log_error("%s - Abort.\n", libusb_error_name(init));
+        exit(EXIT_FAILURE);
+    }
+
+    if (args->verbose == true)
+    {
+        int set = libusb_set_option(NULL, LIBUSB_OPTION_LOG_LEVEL, LIBUSB_LOG_LEVEL_DEBUG);
+
+        if (set < LIBUSB_SUCCESS)
+        {
+            log_error("%s - Abort.\n", libusb_error_name(init));
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 void device_find(args_t* args, struct libusb_device_handle** handleptr)
