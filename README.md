@@ -11,7 +11,13 @@ Currently missing:
 - Scan
 - Custom
 
+## Build
 
+To build run the following:
+
+```
+mkdir -p build && cd build && cmake .. && make
+```
 
 ## Demo
 
