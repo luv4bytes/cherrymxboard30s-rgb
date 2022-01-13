@@ -19,7 +19,7 @@ Currently missing:
 To build run the following:
 
 ```
-mkdir -p build && cd build && cmake .. && make
+mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE={BuildType} .. && make
 ```
 
 ## Usage
