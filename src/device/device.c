@@ -157,19 +157,23 @@ static int get_device_index()
         char buf[buflen];
         memset(buf, 0, sizeof(char) * buflen);
 
-        fgets(buf, buflen, stdin);
+        char* in = fgets(buf, buflen, stdin);
+
+        if (in == NULL)
+        {
+            log_error("Error choosing USB device - Abort.\n");
+            exit(EXIT_FAILURE);
+        }
 
         if (!isdigit(buf[0]))
         {
-            // More than 6
-            if (buf[buflen - 1] == 0)
+            if (buf[0] == '\n')
             {
-                // Clear stdin
-                char c;
-                while ((c = getchar()) != '\n' && c != EOF) {}
-
                 continue;
             }
+
+            char c;
+            while ((c = getchar()) == ' ') {}
 
             fprintf(stdout, "\n");
             continue;
@@ -281,6 +285,12 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
     {
         // If just one device is connected the first index in indizes is taken.
         chosen = indizes[0];
+    }
+
+    if (chosen > found - 1)
+    {
+        log_error("The given index was invalid. Index must not be bigger than %i - Abort.\n", found - 1);
+        exit(EXIT_FAILURE);
     }
 
     ret = libusb_open(devices[chosen], handleptr);
