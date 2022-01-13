@@ -4,8 +4,6 @@ project(cherrymxboard30s-rgb VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-set(CMAKE_BUILD_TYPE Debug)
-
 add_compile_options(-Wall)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
