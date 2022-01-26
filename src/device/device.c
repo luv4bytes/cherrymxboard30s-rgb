@@ -394,7 +394,7 @@ void device_spectrum_light(lighting_t lighting, struct libusb_device_handle* han
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting SPECTRUM lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
@@ -420,7 +420,7 @@ void device_breathing_light(lighting_t lighting, struct libusb_device_handle* ha
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting BREATHING lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
@@ -446,7 +446,7 @@ void device_rolling_light(lighting_t lighting, struct libusb_device_handle* hand
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting ROLLING lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
@@ -472,17 +472,18 @@ void device_curve_light(lighting_t lighting, struct libusb_device_handle* handle
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting CURVE lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
 void device_scan_light(lighting_t lighting, struct libusb_device_handle* handle)
 {
-    /* TODO:
-        Couldn't figure that out yet...
-        The second byte changes - as it seems - with every change in color.
-        I bet this is somehow calculable...
-    */
+    /* TODO: */
+}
+
+void device_custom_light(lighting_t lighting, struct libusb_device_handle* handle)
+{
+    /* TODO: */
 }
 
 void device_radiation_light(lighting_t lighting, struct libusb_device_handle* handle)
@@ -507,7 +508,7 @@ void device_radiation_light(lighting_t lighting, struct libusb_device_handle* ha
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting RADIATION lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
@@ -533,7 +534,7 @@ void device_ripples_light(lighting_t lighting, struct libusb_device_handle* hand
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting RIPPLES lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
@@ -559,7 +560,7 @@ void device_single_key_light(lighting_t lighting, struct libusb_device_handle* h
 
     if (written < LIBUSB_SUCCESS)
     {
-        log_error("Error setting WAVE lighting - %s - Abort.\n", libusb_error_name(written));
+        log_error("Error setting SINGLE KEY lighting - %s - Abort.\n", libusb_error_name(written));
     }
 }
 
@@ -603,6 +604,11 @@ void device_set_lighting(args_t* args)
         break;
 
     case SCAN:
+        device_scan_light(lighting, handle);
+        break;
+
+    case CUSTOM:
+        device_custom_light(lighting, handle);
         break;
 
     case RADIATION:

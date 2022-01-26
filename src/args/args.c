@@ -101,6 +101,11 @@ static LIGHTING parse_lighting(char* lighting)
         return SCAN;
     }
 
+    if (strcmp(lighting, "custom") == 0)
+    {
+        return CUSTOM;
+    }
+
     if (strcmp(lighting, "radiation") == 0)
     {
         return RADIATION;

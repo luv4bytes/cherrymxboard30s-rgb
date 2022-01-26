@@ -39,12 +39,11 @@ typedef enum
     ROLLING,
     CURVE,
     SCAN,
+    CUSTOM,
     RADIATION,
     RIPPLES,
     SINGLE_KEY,
     STATIC,
-
-    // TODO: Custom
 
 } LIGHTING;
 
