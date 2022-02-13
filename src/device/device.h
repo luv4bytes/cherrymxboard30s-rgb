@@ -102,7 +102,7 @@ void device_curve_light(lighting_t lighting, struct libusb_device_handle* handle
 void device_scan_light(lighting_t lighting, struct libusb_device_handle* handle);
 
 /**
- * @brief Sets SCAN lighting.
+ * @brief Sets CUSTOM lighting.
  *
  * @param lighting Holds information about lighting.
  * @param handle USB device handle.
