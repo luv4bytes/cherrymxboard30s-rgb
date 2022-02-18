@@ -26,9 +26,9 @@ SOFTWARE.
 
 void help_print()
 {
-    printf(CYAN("cherrymxboard30s-rgb\n"));
+    printf(CYAN("cherrymxboard30s-rgb")"\n");
     printf("\n");
-    printf(YELLOW("Usage: ./cherrymxboard30s-rgb [OPTIONS...] [LIGHTING]\n"));
+    printf(YELLOW("Usage: ./cherrymxboard30s-rgb [OPTIONS...] [LIGHTING]")"\n");
     printf("\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--red", "[0 - 255]", "Red value of the RGB value that shall be used for setting the color.\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--green", "[0 - 255]", "Green value of the RGB value that shall be used for setting the color.\n");
@@ -56,7 +56,7 @@ void help_print()
     printf("%-10s%-20s\n", " ", "STATIC");
     printf("\n");
     printf("Remarks: Using cherrymxboard30s-rgb requires sudo permissions if no udev rules are defined.\n");
-    printf("For more information see \033[35mhttps://gitlab.com/luv4bytes/cherrymxboard30s-rgb\033[0m.\n");
+    printf("For more information see " GREEN("https://gitlab.com/luv4bytes/cherrymxboard30s-rgb.")"\n");
     printf("\n");
 }
 
