@@ -47,7 +47,7 @@ void log_info(const char* fmt, ...)
     va_list args;
     va_start(args, fmt);
 
-    printf("%s " BLUE "INFO  " END_COLOR, ts);
+    printf("%s " BLUE("INFO  "), ts);
     vfprintf(stdout, fmt, args);
     printf("\n");
 
@@ -65,7 +65,7 @@ void log_debug(const char* fmt, ...)
     va_list args;
     va_start(args, fmt);
 
-    printf("%s " YELLOW "DEBUG " END_COLOR, ts);
+    printf("%s " YELLOW("DEBUG "), ts);
     vfprintf(stdout, fmt, args);
     printf("\n");
 
@@ -83,7 +83,7 @@ void log_error(const char* fmt, ...)
     va_list args;
     va_start(args, fmt);
 
-    printf("%s " RED "ERROR " END_COLOR, ts);
+    printf("%s " RED("ERROR "), ts);
     vfprintf(stdout, fmt, args);
     printf("\n");
 

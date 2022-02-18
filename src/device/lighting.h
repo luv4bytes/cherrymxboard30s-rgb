@@ -24,8 +24,9 @@ SOFTWARE.
 
 #pragma once
 
+#include "stdint.h"
+#include "stdlib.h"
 #include "stdbool.h"
-#include "libusb-1.0/libusb.h"
 
 /**
  * @brief Defines how colors are displayed on the keyboard. I.e. STATIC, WAVE, BREATHING, CURVE etc.
@@ -33,22 +34,22 @@ SOFTWARE.
  */
 typedef enum
 {
-    WAVE = 0,
-    SPECTRUM,
-    BREATHING,
-    ROLLING,
-    CURVE,
-    SCAN,
-    CUSTOM,
-    RADIATION,
-    RIPPLES,
-    SINGLE_KEY,
-    STATIC,
+    WAVE        =  0,
+    SPECTRUM    =  1,
+    BREATHING   =  2,
+    ROLLING     =  3,
+    CURVE       =  4,
+    SCAN        =  5,
+    CUSTOM      =  6,
+    RADIATION   =  7,
+    RIPPLES     =  8,
+    SINGLE_KEY  =  9,
+    STATIC      = 10,
 
 } LIGHTING;
 
 /**
- * @brief Defines an lighting information.
+ * @brief Defines lighting information.
  *
  */
 typedef struct

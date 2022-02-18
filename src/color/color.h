@@ -24,16 +24,7 @@ SOFTWARE.
 
 #pragma once
 
-#include "stdio.h"
-
-#include "../color/color.h"
-
-/**
- * @brief Prints the help text.
- */
-void help_print();
-
-/**
- * @brief Prints version info.
- */
-void version_print();
+#define CYAN(text)      "\033[1;36m" text "\033[0m"
+#define BLUE(text)      "\033[1;34m" text "\033[0m"
+#define YELLOW(text)    "\033[1;33m" text "\033[0m"
+#define RED(text)       "\033[1;31m" text "\033[0m"

@@ -26,6 +26,12 @@ SOFTWARE. */
 #define MSG_LEN 64
 
 /**
+ * @brief Defines the type for the functions of releasing and claiming interfaces.
+ * 
+ */
+typedef int (*iffunc) (struct libusb_device_handle*, int);
+
+/**
  * @brief Get the device pointer from the current handle.
  *
  * @param handle USB device handle.
@@ -66,11 +72,12 @@ static void get_device_descriptor(struct libusb_device_descriptor* into, struct 
 }
 
 /**
- * @brief Releases all interfaces of the device.
- *
- * @param handle USB device handle.
+ * @brief Applies the given function to all interfaces of a device.
+ * 
+ * @param handle Device handle.
+ * @param func The function that shall be applied.
  */
-static void release_all_interfaces(struct libusb_device_handle* handle)
+static void perform_on_all_interfaces(struct libusb_device_handle* handle, iffunc func)
 {
     struct libusb_device* dev = get_device(handle);
     struct libusb_device_descriptor dev_dsc;
@@ -92,45 +99,7 @@ static void release_all_interfaces(struct libusb_device_handle* handle)
         {
             int intf_num = cfg_dsc->interface[j].altsetting->bInterfaceNumber;
 
-            ret = libusb_release_interface(handle, intf_num);
-
-            if (ret < LIBUSB_SUCCESS)
-            {
-                log_error("Error releasing interface %i - %s - Abort.\n", intf_num, libusb_error_name(ret));
-                exit(EXIT_FAILURE);
-            }
-        }
-    }
-}
-
-/**
- * @brief Claims all interfaces of the device.
- *
- * @param handle USB device handle.
- */
-static void claim_all_interfaces(struct libusb_device_handle* handle)
-{
-    struct libusb_device* dev = get_device(handle);
-    struct libusb_device_descriptor dev_dsc;
-
-    get_device_descriptor(&dev_dsc, dev);
-
-    struct libusb_config_descriptor* cfg_dsc;
-    for (int i = 0; i < dev_dsc.bNumConfigurations; i++)
-    {
-        int ret = libusb_get_config_descriptor(dev, i, &cfg_dsc);
-
-        if (ret < LIBUSB_SUCCESS)
-        {
-            log_error("Error getting config descriptor - %s - Abort.\n", libusb_error_name(ret));
-            exit(EXIT_FAILURE);
-        }
-
-        for (int j = 0; j < cfg_dsc->bNumInterfaces; j++)
-        {
-            int intf_num = cfg_dsc->interface[j].altsetting->bInterfaceNumber;
-
-            ret = libusb_claim_interface(handle, intf_num);
+            ret = func(handle, intf_num);
 
             if (ret < LIBUSB_SUCCESS)
             {
@@ -317,7 +286,7 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
         exit(EXIT_FAILURE);
     }
 
-    claim_all_interfaces(*handleptr);
+    perform_on_all_interfaces(*handleptr, libusb_claim_interface);
 }
 
 void device_static_light(lighting_t lighting, struct libusb_device_handle* handle)
@@ -633,7 +602,7 @@ void device_set_lighting(args_t* args)
 
 void device_cleanup(struct libusb_device_handle* handle)
 {
-    release_all_interfaces(handle);
+    perform_on_all_interfaces(handle, libusb_release_interface);
 
     if (handle != NULL)
     {

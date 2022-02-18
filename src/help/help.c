@@ -26,9 +26,9 @@ SOFTWARE.
 
 void help_print()
 {
-    printf("\033[36mcherrymxboard30s-rgb\033[0m\n");
+    printf(CYAN("cherrymxboard30s-rgb\n"));
     printf("\n");
-    printf("Usage: ./cherrymxboard30s-rgb [OPTIONS...] [LIGHTING] \033[0m\n");
+    printf(YELLOW("Usage: ./cherrymxboard30s-rgb [OPTIONS...] [LIGHTING]\n"));
     printf("\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--red", "[0 - 255]", "Red value of the RGB value that shall be used for setting the color.\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--green", "[0 - 255]", "Green value of the RGB value that shall be used for setting the color.\n");
@@ -48,6 +48,8 @@ void help_print()
     printf("%-10s%-20s\n", " ", "BREATHING");
     printf("%-10s%-20s\n", " ", "ROLLING");
     printf("%-10s%-20s\n", " ", "CURVE");
+    printf("%-10s%-20s\n", " ", "SCAN");
+    printf("%-10s%-20s\n", " ", "CUSTOM");
     printf("%-10s%-20s\n", " ", "RADIATION");
     printf("%-10s%-20s\n", " ", "RIPPLES");
     printf("%-10s%-20s\n", " ", "SINGLE_KEY");

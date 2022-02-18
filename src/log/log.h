@@ -26,10 +26,7 @@ SOFTWARE. */
 #include "time.h"
 #include "stdarg.h"
 
-#define BLUE "\033[1;34m"
-#define YELLOW "\033[1;33m"
-#define RED "\033[1;31m"
-#define END_COLOR "\033[0m"
+#include "../color/color.h"
 
 /**
  * @brief Prints out given message as INFO.
