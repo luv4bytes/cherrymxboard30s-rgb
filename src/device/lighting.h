@@ -34,17 +34,17 @@ SOFTWARE.
  */
 typedef enum
 {
-    WAVE        =  0,
-    SPECTRUM    =  1,
-    BREATHING   =  2,
-    ROLLING     =  3,
-    CURVE       =  4,
-    SCAN        =  5,
-    CUSTOM      =  6,
-    RADIATION   =  7,
-    RIPPLES     =  8,
-    SINGLE_KEY  =  9,
-    STATIC      = 10,
+    WAVE = 0,
+    SPECTRUM = 1,
+    BREATHING = 2,
+    ROLLING = 3,
+    CURVE = 4,
+    SCAN = 5,
+    CUSTOM = 6,
+    RADIATION = 7,
+    RIPPLES = 8,
+    SINGLE_KEY = 9,
+    STATIC = 10,
 
 } LIGHTING;
 
@@ -61,6 +61,7 @@ typedef struct
     LIGHTING lighting;
 
     uint8_t speed;
+    uint8_t brightness;
     bool random_colors;
 
 } lighting_t;

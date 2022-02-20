@@ -24,12 +24,13 @@ SOFTWARE. */
 
 #include "stdlib.h"
 #include "libusb-1.0/libusb.h"
+#include "math.h"
 
 #include "../log/log.h"
 #include "../args/args.h"
 
-#define VENDOR_ID 0x046a    // Cherry GmbH
-#define PRODUCT_ID 0x0079   // MX Board 3.0 s (Unknown)
+#define VENDOR_ID 0x046a  // Cherry GmbH
+#define PRODUCT_ID 0x0079 // MX Board 3.0 s (Unknown)
 
 /**
  * @brief Sets up libusb.

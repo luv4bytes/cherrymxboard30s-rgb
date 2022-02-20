@@ -71,6 +71,12 @@ typedef struct {
     uint8_t speed;
 
     /**
+     * @brief Speed for keyboard lighting.
+     *
+     */
+    uint8_t brightness;
+
+    /**
      * @brief Determines if random colors should be used. If this is true explicit RGB values are ignored.
      *
      */

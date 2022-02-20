@@ -35,6 +35,7 @@ void help_print()
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--blue", "[0 - 255]", "Blue value of the RGB value that shall be used for setting the color.\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "-l", "--lighting", "[LIGHT MODE]", "The way of displaying the color on the keyboard. I.e. STATIC, WAVE, CURVE etc.\n");
     printf("%-5s%-10s%-20s\t%s\t\t%s", " ", "-s", "--speed", "[0 - 4]", "If applicable this sets the lighting effect speed. Ranges from 0 (fastest) to 4 (slowest).\n");
+    printf("%-5s%-10s%-20s\t%s\t\t%s", " ", "-b", "--brightness", "[1 - 4]", "Sets the brightness of the lighting.\n");
     printf("%-5s%-10s%-20s\t%s\t\t%s", " ", "-r", "--random-colors", "", "Applies random colors for lighting if applicable.\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--vendor-id", "[VENDOR]", "Specifies an explicit vendor id to look for when searching for the device. If not specified standard value is set.\n");
     printf("%-5s%-10s%-20s\t%s\t%s", " ", "", "--product-id", "[PRODUCT]", "Specifies an explicit product id to look for when searching for the device. If not specified standard value is set.\n");

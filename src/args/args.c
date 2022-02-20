@@ -161,13 +161,14 @@ void args_parse(int argc, char** argv, args_t* args)
         exit(EXIT_SUCCESS);
     }
 
-    static const char* shortopts = "vl:s:rd:";
+    static const char* shortopts = "vl:s:b:rd:";
     static struct option longopts[] = {
         {"red", required_argument, &red, 0},
         {"green", required_argument, &green, 0},
         {"blue", required_argument, &blue, 0},
         {"lighting", required_argument, 0, 'l'},
         {"speed", required_argument, 0, 's'},
+        {"brightness", required_argument, 0, 'b'},
         {"random-colors", no_argument, 0, 'r'},
         {"vendor-id", required_argument, &vendor_id, 0},
         {"product-id", required_argument, &product_id, 0},
@@ -234,6 +235,21 @@ void args_parse(int argc, char** argv, args_t* args)
             if (args->speed > 4)
             {
                 args->speed = 4;
+            }
+
+            break;
+
+        case 'b':
+            args->brightness = atoi(optarg);
+
+            if (args->brightness > 4)
+            {
+                args->brightness = 4;
+            }
+
+            if (args->brightness <= 0)
+            {
+                args->brightness = 1;
             }
 
             break;

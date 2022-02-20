@@ -15,6 +15,7 @@ add_executable(cherrymxboard30s-rgb src/main.c
                                     src/device/lighting.c)
 
 target_link_libraries(cherrymxboard30s-rgb usb-1.0)
+target_link_libraries(cherrymxboard30s-rgb m) # math
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
