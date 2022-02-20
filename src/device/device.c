@@ -194,8 +194,8 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
     uint16_t search_product = args->product_id != -1 ? args->product_id : PRODUCT_ID;
 
     int ind_i = 0;
-    int indizes[found];
-    memset(indizes, -1, sizeof(int) * found);
+    int indices[found];
+    memset(indices, -1, sizeof(int) * found);
 
     int chosen = 0;
 
@@ -217,7 +217,7 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
 
         if (dev_dsc.idVendor == search_vendor && dev_dsc.idProduct == search_product)
         {
-            indizes[ind_i++] = i;
+            indices[ind_i++] = i;
         }
     }
 
@@ -226,14 +226,14 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
     {
         fprintf(stdout, "More than one matching device found. Please choose the desired device...\n");
 
-        for (int i = 0; i < ARRAY_SIZE(indizes); i++)
+        for (int i = 0; i < ARRAY_SIZE(indices); i++)
         {
-            if (indizes[i] == -1)
+            if (indices[i] == -1)
             {
                 break;
             }
 
-            struct libusb_device* dev = devices[indizes[i]];
+            struct libusb_device* dev = devices[indices[i]];
 
             struct libusb_device_descriptor dev_dsc = { 0 };
             ret = libusb_get_device_descriptor(dev, &dev_dsc);
@@ -247,15 +247,15 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
             uint8_t busnum = libusb_get_bus_number(dev);
             uint8_t devaddr = libusb_get_device_address(dev);
 
-            fprintf(stdout, "[%i] Bus: %i, Device: %i\n", indizes[i], busnum, devaddr);
+            fprintf(stdout, "[%i] Bus: %i, Device: %i\n", indices[i], busnum, devaddr);
         }
 
         chosen = get_device_index();
     }
     else
     {
-        // If just one device is connected the first index in indizes is taken.
-        chosen = indizes[0];
+        // If just one device is connected the first index in indices is taken.
+        chosen = indices[0];
     }
 
     if (chosen > found - 1)
