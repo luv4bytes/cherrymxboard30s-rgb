@@ -35,7 +35,7 @@ void lighting_init(lighting_t* lighting)
     lighting->green = 0;
     lighting->blue = 0;
 
-    lighting->lighting = STATIC;
+    lighting->mode = STATIC;
 
     lighting->speed = 4;
     lighting->brightness = 4;

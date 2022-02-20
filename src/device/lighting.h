@@ -46,7 +46,7 @@ typedef enum
     SINGLE_KEY = 9,
     STATIC = 10,
 
-} LIGHTING;
+} LMODE;
 
 /**
  * @brief Defines lighting information.
@@ -58,7 +58,7 @@ typedef struct
     uint8_t green;
     uint8_t blue;
 
-    LIGHTING lighting;
+    LMODE mode;
 
     uint8_t speed;
     uint8_t brightness;

@@ -535,17 +535,18 @@ void device_set_lighting(args_t* args)
     device_setup(args);
     device_find(args, &handle);
 
-    lighting_t lighting = {
-        .red = args->red,
-        .green = args->green,
-        .blue = args->blue,
-        .lighting = args->lighting,
-        .speed = args->speed,
-        .brightness = args->brightness,
-        .random_colors = args->random_colors
-    };
+    lighting_t lighting;
+    lighting_init(&lighting);
 
-    switch (lighting.lighting)
+    lighting.red = args->red;
+    lighting.green = args->green;
+    lighting.blue = args->blue;
+    lighting.mode = args->lighting;
+    lighting.speed = args->speed;
+    lighting.brightness = args->brightness;
+    lighting.random_colors = args->random_colors;
+
+    switch (lighting.mode)
     {
     case WAVE:
         device_wave_light(lighting, handle);

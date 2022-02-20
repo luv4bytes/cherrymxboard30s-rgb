@@ -62,7 +62,7 @@ typedef struct {
      * @brief The way of displaying the color on the keyboard. I.e. STATIC, WAVE, CURVE etc.
      *
      */
-    LIGHTING lighting;
+    LMODE lighting;
 
     /**
      * @brief Speed for keyboard lighting.

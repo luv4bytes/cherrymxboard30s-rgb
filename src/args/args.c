@@ -61,9 +61,9 @@ static void astrlow(char* str, size_t len)
  * @brief Parses the lighting argument.
  *
  * @param lighting Lighting string.
- * @return LIGHTING Corresponding lighting value.
+ * @return LMODE Corresponding lighting value.
  */
-static LIGHTING parse_lighting(char* lighting)
+static LMODE parse_lighting(char* lighting)
 {
     if (lighting == NULL) {
         return STATIC;
