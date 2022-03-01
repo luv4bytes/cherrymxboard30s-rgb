@@ -1,3 +1,2 @@
 - Custom Lighting
 - Scan lighting
-- Debian packaging?
