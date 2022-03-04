@@ -144,6 +144,5 @@ void device_set_lighting(args_t* args);
 
 /**
  * @brief Cleans up all resources and releases all interfaces.
- *
  */
 void device_cleanup(struct libusb_device_handle* handle);

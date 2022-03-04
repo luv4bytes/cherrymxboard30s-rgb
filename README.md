@@ -1,12 +1,12 @@
 # CherryMXBoard30s RGB
 
-Software for controlling RGB lighting on the    Cherry MX Board 3.0 S    for Linux.
+Software for controlling RGB lighting on the *Cherry MX Board 3.0 S*    for Linux.
 
 ![](doc/img/cherrymx30s_demo.gif)
 
 I reverse engineered the USB packets that are sent to the keyboard by the official Cherry Utility software which is only available for Windows. So there is always a chance that this program might brick your device because of missing or wrong interpreted communications. So far the implemented lighting modes and effects seem to work. 
 
-### **Use at own risk**
+### <span style="color:red">***Use at own risk***</span>
 
 *This project is still WIP. Not every effect is implemented yet.*
 
@@ -14,18 +14,19 @@ Currently missing:
 - Scan
 - Custom
 
-## Build
-
-To build run the following:
+## Build & Install
 
 ```
-mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE={BuildType} .. && make
+mkdir -p build
+cd build
+cmake -DCMAKE_BUILD_TYPE={BuildType} ..
+
+# For a simple build
+make
+
+# For installing
+sudo make install
+
 ```
 
-## Usage
-
-For viewing all possible options run the program without any arguments.
-
-```
-./cherrymxboard30s-rgb
-```
+The easiest and recommended way to install is using *sudo make install*.

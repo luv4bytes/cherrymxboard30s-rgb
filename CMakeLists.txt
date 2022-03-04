@@ -4,6 +4,9 @@ project(cherrymxboard30s-rgb VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
+include(FindPkgConfig)
+pkg_check_modules(LIBUSB libusb-1.0 REQUIRED)
+
 add_compile_options(-Wall)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
@@ -32,5 +35,8 @@ set(CPACK_PACKAGE_SECTION "misc")
 INSTALL(TARGETS cherrymxboard30s-rgb RUNTIME DESTINATION bin)
 INSTALL(FILES LICENSE "README.md" DESTINATION share/${PROJECT_NAME}/doc)
 INSTALL(DIRECTORY doc/img DESTINATION share/${PROJECT_NAME}/doc/doc FILES_MATCHING PATTERN "*")
+INSTALL(FILES 50-cherrymx.rules DESTINATION /etc/udev/rules.d)
+INSTALL(CODE "execute_process(COMMAND udevadm control --reload-rules)")
+INSTALL(CODE "execute_process(COMMAND udevadm trigger)")
 
 include(CPack)
