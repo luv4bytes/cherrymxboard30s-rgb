@@ -16,6 +16,10 @@ Currently missing:
 
 ## Build & Install
 
+### Requirements
+- libusb-1.0-0
+- libusb-1.0-0-dev
+
 ```
 mkdir -p build
 cd build
