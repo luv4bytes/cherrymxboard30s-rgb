@@ -57,7 +57,7 @@ void help_print()
     printf("%-10s%-20s\n", " ", "STATIC");
     printf("\n");
     printf("Remarks: Using cherrymxboard30s-rgb requires sudo permissions if no udev rules are defined.\n");
-    printf("For more information see " GREEN("https://gitlab.com/luv4bytes/cherrymxboard30s-rgb.")"\n");
+    printf("For more information see " GREEN(PROJECT_URL) ".\n");
     printf("\n");
 }
 

@@ -9,6 +9,7 @@ pkg_check_modules(LIBUSB libusb-1.0 REQUIRED)
 
 add_compile_options(-Wall)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
+add_compile_definitions(PROJECT_URL="https://gitlab.com/luv4bytes/cherrymxboard30s-rgb")
 
 add_executable(cherrymxboard30s-rgb src/main.c
                                     src/args/args.c

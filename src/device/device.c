@@ -264,6 +264,12 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
         exit(EXIT_FAILURE);
     }
 
+    if (chosen == -1)
+    {
+        log_info("No appropriate device found.\n");
+        exit(EXIT_SUCCESS);
+    }
+
     ret = libusb_open(devices[chosen], handleptr);
 
     if (ret < LIBUSB_SUCCESS)
