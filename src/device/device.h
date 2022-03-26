@@ -29,8 +29,8 @@ SOFTWARE. */
 #include "../log/log.h"
 #include "../args/args.h"
 
-#define VENDOR_ID 0x046a  // Cherry GmbH
-#define PRODUCT_ID 0x0079 // MX Board 3.0 s (Unknown)
+#define DEFAULT_VENDOR_ID 0x046a  // Cherry GmbH
+#define DEFAULT_PRODUCT_ID 0x0079 // MX Board 3.0 s (Unknown)
 
 /**
  * @brief Sets up libusb.

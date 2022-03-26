@@ -72,3 +72,11 @@ typedef struct
  * @param lighting Holds information about lighting.
  */
 void lighting_init(lighting_t* lighting);
+
+/**
+ * @brief Decodes the given lighting mode and returns the according string representation.
+ * 
+ * @param mode The mode to decode.
+ * @return char* The string representation of the given mode.
+ */
+char* lighting_mode_str(LMODE mode);

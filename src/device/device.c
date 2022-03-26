@@ -190,8 +190,8 @@ void device_find(args_t* args, struct libusb_device_handle** handleptr)
         exit(EXIT_FAILURE);
     }
 
-    uint16_t search_vendor = args->vendor_id != -1 ? args->vendor_id : VENDOR_ID;
-    uint16_t search_product = args->product_id != -1 ? args->product_id : PRODUCT_ID;
+    uint16_t search_vendor = args->vendor_id != -1 ? args->vendor_id : DEFAULT_VENDOR_ID;
+    uint16_t search_product = args->product_id != -1 ? args->product_id : DEFAULT_PRODUCT_ID;
 
     int ind_i = 0;
     int indices[found];
@@ -532,6 +532,37 @@ void device_single_key_light(lighting_t lighting, struct libusb_device_handle* h
     }
 }
 
+static void print_args(args_t* args)
+{
+    assert(args != NULL);
+
+    log_info("Lighting mode: %s", lighting_mode_str(args->lighting));
+    log_info("Red: %d", args->red);
+    log_info("Green: %d", args->green);
+    log_info("Blue: %d", args->blue);
+    log_info("Speed: %d", args->speed);
+    log_info("Brightness: %d", args->brightness);
+    log_info("Random colors: %d", args->random_colors);
+
+    if (args->vendor_id == -1)
+    {
+        log_info("Vendor Id: Default");
+    }
+    else
+    {
+        log_info("Vendor Id: %d", args->vendor_id);
+    }
+
+    if (args->product_id == -1)
+    {
+        log_info("Product Id: Default");
+    }
+    else
+    {
+        log_info("Product Id: %d", args->product_id);
+    }
+}
+
 void device_set_lighting(args_t* args)
 {
     assert(args != NULL);
@@ -551,6 +582,11 @@ void device_set_lighting(args_t* args)
     lighting.speed = args->speed;
     lighting.brightness = args->brightness;
     lighting.random_colors = args->random_colors;
+
+    if (args->verbose)
+    {
+        print_args(args);
+    }
 
     switch (lighting.mode)
     {

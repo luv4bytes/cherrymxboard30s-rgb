@@ -24,6 +24,20 @@ SOFTWARE.
 
 #include "lighting.h"
 
+static char* LIGHTING_MODE_STRS[]= {
+    "Wave",
+    "Spectrum",
+    "Breating",
+    "Rolling",
+    "Curve",
+    "Scan",
+    "Custom",
+    "Radiation",
+    "Ripples",
+    "Single key",
+    "Static",
+};
+
 void lighting_init(lighting_t* lighting)
 {
     if (lighting == NULL)
@@ -40,4 +54,9 @@ void lighting_init(lighting_t* lighting)
     lighting->speed = 4;
     lighting->brightness = 4;
     lighting->random_colors = false;
+}
+
+char* lighting_mode_str(LMODE mode)
+{
+    return LIGHTING_MODE_STRS[mode];
 }
