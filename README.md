@@ -14,6 +14,10 @@ Currently missing:
 - Scan
 - Custom
 
+### Tested on:
+Ubuntu 20.04  
+Ubuntu 21.10
+
 ## Build & Install
 
 ### Requirements
