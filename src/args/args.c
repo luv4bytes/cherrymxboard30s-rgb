@@ -142,8 +142,9 @@ void args_init(args_t* args)
 
 
     args->lighting = STATIC;
-    args->speed = 0;
+    args->speed = 4;
     args->random_colors = 0;
+    args->brightness = 4;
 
     args->vendor_id = -1;
     args->product_id = -1;
