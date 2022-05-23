@@ -248,7 +248,7 @@ void args_parse(int argc, char** argv, args_t* args)
                 args->brightness = 4;
             }
 
-            if (args->brightness <= 0)
+            if (args->brightness == 0)
             {
                 args->brightness = 1;
             }
