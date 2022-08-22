@@ -38,3 +38,29 @@ sudo make install
 ```
 
 The easiest and recommended way to install is using *sudo make install*.
+
+## Usage
+
+To display the program help you need to run the program without any further arguments.
+
+```
+./cherrymxboard30s-rgb
+```
+
+### Examples
+
+```
+# Setting the keyboard to static red light with full brightness.
+
+./cherrymxboard30s-rgb -l static --red 255 -b 4
+
+
+# Setting the keybord to wave light with random colors and full speed.
+
+./cherrymxboard30s-rgb -l wave -r -b 4 -s 0
+
+
+# Setting keyboard device and vendor id.
+
+./cherrymxboard30-rgb -l static --blue 255 --vendor-id 0x0001 --product-id 0x0002
+```
