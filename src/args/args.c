@@ -152,6 +152,28 @@ void args_init(args_t* args)
     args->verbose = 0;
 }
 
+static u_int8_t parse_color_value(const char* colorval)
+{
+    if (colorval == NULL)
+    {
+        return 0;
+    }
+
+    int v = atoi(colorval);
+
+    if (v > 255)
+    {
+        v = 255;
+    }
+
+    if (v < 0)
+    {
+        v = 0;
+    }
+
+    return v;
+}
+
 void args_parse(int argc, char** argv, args_t* args)
 {
     assert(args != NULL);
@@ -188,19 +210,19 @@ void args_parse(int argc, char** argv, args_t* args)
         case 0:
             if (strcmp(longopts[option_index].name, "red") == 0)
             {
-                args->red = atoi(optarg);
+                args->red = parse_color_value(optarg);
                 break;
             }
 
             if (strcmp(longopts[option_index].name, "green") == 0)
             {
-                args->green = atoi(optarg);
+                args->green = parse_color_value(optarg);
                 break;
             }
 
             if (strcmp(longopts[option_index].name, "blue") == 0)
             {
-                args->blue = atoi(optarg);
+                args->blue = parse_color_value(optarg);
                 break;
             }
 

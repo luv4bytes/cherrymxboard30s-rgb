@@ -47,7 +47,7 @@ static struct libusb_device* get_device(struct libusb_device_handle* handle)
 
     if (dev == NULL)
     {
-        log_error("%s - Abort.\n", "Error getting device from handle while cleaning up");
+        log_error("%s - Abort.\n", "Error getting device from handle.");
         exit(EXIT_FAILURE);
     }
 
@@ -583,10 +583,7 @@ void device_set_lighting(args_t* args)
     lighting.brightness = args->brightness;
     lighting.random_colors = args->random_colors;
 
-    if (args->verbose)
-    {
-        print_args(args);
-    }
+    print_args(args);
 
     switch (lighting.mode)
     {
