@@ -9,14 +9,14 @@ pkg_check_modules(LIBUSB libusb-1.0 REQUIRED)
 
 add_compile_options(-Wall)
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
-add_compile_definitions(PROJECT_URL="https://gitlab.com/luv4bytes/cherrymxboard30s-rgb")
+add_compile_definitions(PROJECT_URL="https://github.com/luv4bytes/cherrymxboard30s-rgb")
 
 add_executable(cherrymxboard30s-rgb src/main.c
-                                    src/args/args.c
-                                    src/log/log.c
-                                    src/device/device.c
-                                    src/help/help.c
-                                    src/device/lighting.c)
+    src/args/args.c
+    src/log/log.c
+    src/device/device.c
+    src/help/help.c
+    src/device/lighting.c)
 
 target_link_libraries(cherrymxboard30s-rgb usb-1.0)
 target_link_libraries(cherrymxboard30s-rgb m) # math
