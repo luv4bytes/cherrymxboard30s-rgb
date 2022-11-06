@@ -22,9 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include "stdlib.h"
+
 #include "lighting.h"
 
-static char* LIGHTING_MODE_STRS[]= {
+static char* LIGHTING_MODE_STRS[] = {
     "Wave",
     "Spectrum",
     "Breating",

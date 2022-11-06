@@ -22,12 +22,6 @@ SOFTWARE. */
 
 #pragma once
 
-#include "stdio.h"
-#include "time.h"
-#include "stdarg.h"
-
-#include "../color/color.h"
-
 /**
  * @brief Prints out given message as INFO.
  *

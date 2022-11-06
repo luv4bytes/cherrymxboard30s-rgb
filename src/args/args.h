@@ -24,15 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include "stdio.h"
-#include "string.h"
-#include "ctype.h"
-#include "getopt.h"
-#include "stdlib.h"
-#include "assert.h"
-#include "stdbool.h"
+#include "stdint.h"
 
-#include "../help/help.h"
 #include "../device/lighting.h"
 
 /**

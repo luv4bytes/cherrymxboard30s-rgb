@@ -20,7 +20,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
+#include "stdio.h"
+#include "stdlib.h"
+#include "assert.h"
+#include "string.h"
+#include "ctype.h"
+
 #include "device.h"
+#include "../log/log.h"
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define MSG_LEN 64

@@ -24,10 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include "stdio.h"
-
-#include "../color/color.h"
-
 /**
  * @brief Prints the help text.
  */

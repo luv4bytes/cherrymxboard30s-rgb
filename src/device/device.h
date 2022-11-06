@@ -22,11 +22,8 @@ SOFTWARE. */
 
 #pragma once
 
-#include "stdlib.h"
 #include "libusb-1.0/libusb.h"
-#include "math.h"
 
-#include "../log/log.h"
 #include "../args/args.h"
 
 #define DEFAULT_VENDOR_ID 0x046a  // Cherry GmbH

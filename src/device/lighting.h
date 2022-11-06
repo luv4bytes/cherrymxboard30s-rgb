@@ -25,7 +25,6 @@ SOFTWARE.
 #pragma once
 
 #include "stdint.h"
-#include "stdlib.h"
 #include "stdbool.h"
 
 /**
@@ -75,7 +74,7 @@ void lighting_init(lighting_t* lighting);
 
 /**
  * @brief Decodes the given lighting mode and returns the according string representation.
- * 
+ *
  * @param mode The mode to decode.
  * @return char* The string representation of the given mode.
  */

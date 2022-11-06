@@ -22,7 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include "stdio.h"
+#include "string.h"
+#include "getopt.h"
+#include "stdlib.h"
+#include "assert.h"
+#include "stdbool.h"
+#include "ctype.h"
+
 #include "args.h"
+#include "../help/help.h"
 
 static int red;
 static int green;
