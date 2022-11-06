@@ -1,0 +1,22 @@
+name: Ubuntu 20.04 Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: build
+      run : |
+        sudo apt install cmake libusb-1.0-0 libusb-1.0-0-dev      
+        mkdir build
+        cd build
+        cmake -S..
+        make
