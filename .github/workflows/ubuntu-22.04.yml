@@ -14,8 +14,6 @@ jobs:
     steps:
     - name: build
       run : |
-        sudo apt install cmake libusb-1.0-0 libusb-1.0-0-dev
-        mkdir build
-        cd build
-        cmake -S./..
+        sudo apt install cmake libusb-1.0-0 libusb-1.0-0-dev      
+        cmake -S.
         make
