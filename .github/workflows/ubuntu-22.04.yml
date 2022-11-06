@@ -15,4 +15,4 @@ jobs:
     - name: install deps
       run: sudo apt install cmake libusb-1.0-0 libusb-1.0-0-dev
     - name: build
-      run: mkdir build && cd build && cmake .. && make
+      run: cmake .
