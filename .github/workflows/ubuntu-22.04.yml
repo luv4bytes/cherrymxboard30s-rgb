@@ -12,7 +12,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: install deps
-      run: sudo apt install cmake libusb-1.0-0 libusb-1.0-0-dev
     - name: build
-      run: cmake .
+      run : |
+        sudo apt install cmake libusb-1.0-0 libusb-1.0-0-dev
+        mkdir build
+        cd build
+        cmake ..
+        make
