@@ -1,5 +1,8 @@
 # CherryMXBoard30s RGB
 
+[![Ubuntu 20.04 Build](https://github.com/luv4bytes/cherrymxboard30s-rgb/actions/workflows/ubuntu-20.04.yml/badge.svg)](https://github.com/luv4bytes/cherrymxboard30s-rgb/actions/workflows/ubuntu-20.04.yml)
+[![Ubuntu 22.04 Build](https://github.com/luv4bytes/cherrymxboard30s-rgb/actions/workflows/ubuntu-22.04.yml/badge.svg)](https://github.com/luv4bytes/cherrymxboard30s-rgb/actions/workflows/ubuntu-22.04.yml)
+
 Software for controlling RGB lighting on the *Cherry MX Board 3.0 S*    for Linux.
 
 ![](doc/img/cherrymx30s_demo.gif)
