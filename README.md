@@ -14,13 +14,12 @@ I reverse engineered the USB packets that are sent to the keyboard by the offici
 *This project is still WIP. Not every effect is implemented yet.*
 
 Currently missing:
-- Scan
 - Custom
 
 ### Tested on:
-Ubuntu 20.04  
-Ubuntu 21.10
-Ubuntu 22.04
+- Ubuntu 20.04  
+- Ubuntu 21.10    
+- Ubuntu 22.04
 
 ## Build & Install
 
