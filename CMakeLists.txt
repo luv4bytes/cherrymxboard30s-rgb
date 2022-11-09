@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(cherrymxboard30s-rgb VERSION 0.1.1)
+project(cherrymxboard30s-rgb VERSION 0.1.2)
 
 include(CTest)
 enable_testing()
@@ -30,7 +30,7 @@ set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_VERSION "${CMAKE_PROJECT_VERSION}")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION}")
-set(CPACK_PACKAGE_CONTACT "https://gitlab.com/luv4bytes/cherrymxboard30s-rgb")
+set(CPACK_PACKAGE_CONTACT "https://github.com/luv4bytes/cherrymxboard30s-rgb")
 set(CPACK_PACKAGE_SECTION "misc")
 
 INSTALL(TARGETS cherrymxboard30s-rgb RUNTIME DESTINATION bin)
