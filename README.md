@@ -20,6 +20,7 @@ Currently missing:
 ### Tested on:
 Ubuntu 20.04  
 Ubuntu 21.10
+Ubuntu 22.04
 
 ## Build & Install
 
